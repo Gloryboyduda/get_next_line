@@ -14,9 +14,25 @@
 
 char	*get_next_line(int fd)
 {
-	open()
+	static char	buffer[BUFFER_SIZE + 1];
+	int			bytes_read;
+	int			i;
 
+	bytes_read = read(fd, buffer, BUFFER_SIZE);
+	buffer[bytes_read] = '\0';
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
+	{
+		write(1, &buffer[i], 1);
+		i++;
+	}
+	write(1, "\n", 1);
+	return (NULL);
+}
 
-
-
+int main()
+{
+	int fdnum = open("txt.txt", O_RDONLY); 
+	get_next_line(fdnum);
+	return 0;
 }

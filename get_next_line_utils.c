@@ -15,3 +15,37 @@
 // --> undefined behaviour: when reading binary file
 // lseek() is forbidden
 // global variables are forbidden
+
+#include "get_next_line.h"
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	len;
+
+	len = 0;
+	if (!str)
+		return (len);
+	while (str[len])
+		len++;
+	return (len);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	size_t	i;
+	size_t	j;
+	char	*new;
+
+	new = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!new)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1 &&s1[i])
+		new[j++] = s1[i++];
+	i = 0;
+	while (s2 && s2[i])
+		new[j++] = s2[i++];
+	new[j] = '\0';
+	return (new);
+}
