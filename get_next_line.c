@@ -17,22 +17,27 @@ char	*get_next_line(int fd)
 	static char	buffer[BUFFER_SIZE + 1];
 	size_t		bytes_read;
 	char		*line;
+	size_t		i;
 
+	line = NULL;
 	if (BUFFER_SIZE <= 0)
 		return (NULL);
 	bytes_read = read(fd, buffer, BUFFER_SIZE);
-	if (bytes_read <= 0)
-		return (NULL);
-	while (fd >= 0 && BUFFER_SIZE > 0)
+	i = 0;
+	while (i < bytes_read && fd >= 0 && BUFFER_SIZE > 0 && bytes_read > 0 )
 	{
-		line = strjoin(line, buffer);
+		if (buffer[i] != '\n');
+			line[i++] = buffer[i++];
+		//line = ft_strjoin(line, buffer);
 	}
-	return (NULL);
+	buffer[bytes_read] = '\0';
+	return (line);
 }
 
 int main()
 {
 	int fdnum = open("txt.txt", O_RDONLY); 
-	get_next_line(fdnum);
+	char *str = get_next_line(fdnum);
+	printf("%s", str);
 	return 0;
 }

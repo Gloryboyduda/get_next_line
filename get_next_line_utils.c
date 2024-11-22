@@ -25,20 +25,18 @@ size_t	ft_strlen_delm(const char *str, char delm)
 	len = 0;
 	if (!str)
 		return (len);
-	while (str[len] && str[len] != delm)
-		len++;
-	if (str[len] == '\n')
+	while (str[len] != delm)
 		len++;
 	return (len);
 }
 
-char	*ft_strjoin_gnl(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	i;
 	size_t	j;
 	char	*new;
 
-	new = (char *)malloc(ft_strlen_delm(s1, 0) + ft_strlen_delm(s2, '\n') + 1);
+	new = (char *)malloc(ft_strlen_delm(s1, '\0') + ft_strlen_delm(s2, '\n') + 1);
 	if (!new)
 		return (NULL);
 	i = 0;
