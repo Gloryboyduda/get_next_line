@@ -21,6 +21,8 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-
+size_t	ft_strlen_delm(const char *str, char delm);
+char	*ft_strjoin_gnl(char const *s1, char const *s2);
+char	*get_next_line(int fd);
 
 # endif

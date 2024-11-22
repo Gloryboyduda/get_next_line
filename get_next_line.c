@@ -15,18 +15,18 @@
 char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1];
-	int			bytes_read;
-	int			i;
+	size_t		bytes_read;
+	char		*line;
 
+	if (BUFFER_SIZE <= 0)
+		return (NULL);
 	bytes_read = read(fd, buffer, BUFFER_SIZE);
-	buffer[bytes_read] = '\0';
-	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
+	if (bytes_read <= 0)
+		return (NULL);
+	while (fd >= 0 && BUFFER_SIZE > 0)
 	{
-		write(1, &buffer[i], 1);
-		i++;
+		line = strjoin(line, buffer);
 	}
-	write(1, "\n", 1);
 	return (NULL);
 }
 
