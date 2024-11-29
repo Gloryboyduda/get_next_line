@@ -3,49 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duandrad <duandrad@student.42lisboa>       +#+  +:+       +#+        */
+/*   By: duandrad <duandrad@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 16:57:50 by duandrad          #+#    #+#             */
-/*   Updated: 2024/11/19 17:01:59 by duandrad         ###   ########.fr       */
+/*   Created: 2024/11/29 13:02:24 by duandrad          #+#    #+#             */
+/*   Updated: 2024/11/29 17:48:39 by duandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* compile with cc -Wall -Werror -Wextra -D BUFFER_SIZE=42 <files>.c
---> undefined behaviour: if the file pointed by the fd changed since last call and read() didnt reach end of file
---> undefined behaviour: when reading binary file
-lseek() is forbidden
-global variables are forbidden */
-
 #include "get_next_line.h"
 
-size_t	ft_strlen_delm(const char *str, char delm)
+/*checks if theres a newline*/
+int	check(char* buff)
 {
-	size_t	len;
+	int		ret;
+	char	*ini;
 
-	len = 0;
-	if (!str)
-		return (len);
-	while (str[len] != delm)
-		len++;
-	return (len);
+	ret = 0;
+	ini = buff;
+	while (*buff)
+	{
+		if (ret == 1)
+			*ini++ = *buff;
+		else if (*buff == '\n')
+			ret = 1;
+		*buff++ = '\0';
+	}
+	return (ret);
+}
+/*counts size until newline and includes newline*/
+size_t	len_newline(char *buff)
+{
+	size_t	i;
+
+	i = 0;
+	if (!buff)
+		return (0);
+	while (buff[i] != '\n' && buff[i])
+		i++;
+	return (i + (buff[i] == '\n'));
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char  *s2)
 {
 	size_t	i;
 	size_t	j;
 	char	*new;
+	size_t	s1_len;
+	size_t	s2_len;
 
-	new = (char *)malloc(ft_strlen_delm(s1, '\0') + ft_strlen_delm(s2, '\n') + 1);
+	s1_len = len_newline(s1);
+	s2_len = len_newline(s2);
+	new = malloc(s1_len + s2_len + 1);
 	if (!new)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (s1 &&s1[i])
+	while (i < s1_len)
 		new[j++] = s1[i++];
+	free (s1);
 	i = 0;
-	while (s2 && s2[i])
+	while (i < s2_len)
 		new[j++] = s2[i++];
 	new[j] = '\0';
 	return (new);
 }
+

@@ -1,5 +1,0 @@
-- 👋 Hi, I’m Duarte
-- 👀 I’m interested in Computer Science
-- 🌱 I’m currently learning C
-- 🏫 I'm a student at 42 Lisboa
-- 🖨️  Get_next_line is a function that returns a line read from a file descriptor. 

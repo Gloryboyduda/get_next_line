@@ -3,41 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: duandrad <duandrad@student.42lisboa>       +#+  +:+       +#+        */
+/*   By: duandrad <duandrad@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 16:21:07 by duandrad          #+#    #+#             */
-/*   Updated: 2024/11/20 02:52:00 by duandrad         ###   ########.fr       */
+/*   Created: 2024/11/29 13:06:26 by duandrad          #+#    #+#             */
+/*   Updated: 2024/11/29 17:51:37 by duandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+char	*ft_strjoin(char *s1, char *s2);
+int		check(char* buff);
+
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
-	size_t		bytes_read;
+	static char	buffer[BUFFER_SIZE];
 	char		*line;
-	size_t		i;
-
+	long long		bytes;
+	
 	line = NULL;
-	if (BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	bytes_read = read(fd, buffer, BUFFER_SIZE);
-	i = 0;
-	while (i < bytes_read && fd >= 0 && BUFFER_SIZE > 0 && bytes_read > 0 )
+	bytes = 1;
+	while(1)
 	{
-		if (buffer[i] != '\n');
-			line[i++] = buffer[i++];
-		//line = ft_strjoin(line, buffer);
+		if (*buffer == '\0')
+			bytes = read(fd, buffer, BUFFER_SIZE);
+		if (bytes < 0)
+			return (NULL);
+		if (bytes)
+			line = ft_strjoin(line, buffer);
+		if (check(buffer) || bytes == 0)
+			break;
 	}
-	buffer[bytes_read] = '\0';
 	return (line);
 }
 
-int main()
+/* int main()
 {
-	int fdnum = open("txt.txt", O_RDONLY); 
-	char *str = get_next_line(fdnum);
-	printf("%s", str);
+	int fd = open("txt.txt", O_RDONLY);
+	char *line;
+	while ((line = get_next_line(fd)))
+	{
+		printf("%s", line);
+		free(line);
+	}
 	return 0;
-}
+} */
