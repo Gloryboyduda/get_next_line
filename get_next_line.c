@@ -6,7 +6,7 @@
 /*   By: duandrad <duandrad@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 13:06:26 by duandrad          #+#    #+#             */
-/*   Updated: 2024/11/29 23:56:33 by duandrad         ###   ########.fr       */
+/*   Updated: 2024/11/29 23:59:07 by duandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-/* 
- int main()
+/* int main()
 {
 	int fd = open("txt.txt", O_RDONLY);
 	char *line;
@@ -58,5 +57,4 @@ char	*get_next_line(int fd)
 	// 	free(line);
 	// }
 	return 0;
-}
- */
+} */
